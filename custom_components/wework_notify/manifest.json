@@ -1,0 +1,15 @@
+{
+  "domain": "wework_notify",
+  "name": "Wework Notify",
+  "config_flow": true,
+  "documentation": "https://github.com/nesror/ha-wework_notify",
+  "issue_tracker": "https://github.com/nesror/ha-wework_notify/issues",
+  "requirements": [],
+  "dependencies": [],
+  "codeowners": [
+    "27hh",
+    "Mdxin",
+    "nestor"
+  ],
+  "version": "v1.0.0"
+}
