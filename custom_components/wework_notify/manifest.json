@@ -2,7 +2,7 @@
   "domain": "wework_notify",
   "name": "Wework Notify",
   "config_flow": false,
-  "documentation": "https://github.com/dscao/ha-wework_notify/",
+  "documentation": "https://github.com/dscao/wework_notify/",
   "issue_tracker": "https://bbs.hassbian.com/thread-16932-1-1.html",
   "requirements": [
   ],
@@ -10,5 +10,5 @@
   "codeowners": [
     "27hh", "Mdxin", "@dscao"
   ],
-  "version": "v1.2"
+  "version": "2022.6.27"
 }
