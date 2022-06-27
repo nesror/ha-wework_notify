@@ -73,6 +73,10 @@ class WeWorkNotificationService(BaseNotificationService):
         url = data.get("url")
         picurl = data.get("picurl")
         videopath = data.get("videopath")
+        imagepath = data.get("imagepath")
+        touser = kwargs.get("target") or [self._touser]
+        touser = '|'.join(touser)
+        # self._touser = touser
 
         if msgtype == "text":
             content = ""
@@ -82,33 +86,54 @@ class WeWorkNotificationService(BaseNotificationService):
             msg = {"content": content}
         elif msgtype == "textcard":
             msg = {"title": title, "description": message, "url": url}
-        elif msgtype == "news":
+        elif msgtype == "news":            
+            curl = (
+                "https://qyapi.weixin.qq.com/cgi-bin/media/uploadimg?access_token="
+                + self.get_access_token()
+                + "&type=image"
+            )
+            if imagepath and os.path.isfile(imagepath):
+                files = {"image": open(imagepath, "rb")}
+                r = requests.post(curl, files=files)
+                re = json.loads(r.text)["url"]
+            elif picurl:
+                re = picurl
+            else:
+                re = ''
+            if not url:
+                url = re
             msg = {
                 "articles": [
                     {
                         "title": title,
                         "description": message,
                         "url": url,
-                        "picurl": picurl,
+                        "picurl": re,
                     }
                 ]
             }
+            
         elif msgtype == "video":
             curl = (
                 "https://qyapi.weixin.qq.com/cgi-bin/media/upload?access_token="
                 + self.get_access_token()
                 + "&type=video"
             )
+            if not videopath:
+                raise TypeError("视频地址未填写，消息类型为视频卡片时此项为必填！")
+                return
             files = {"video": open(videopath, "rb")}
             r = requests.post(curl, files=files)
             re = json.loads(r.text)
             ree = re["media_id"]
             media_id = str(ree)
             msg = {"media_id": media_id, "title": title, "description": message}
+
         else:
             raise TypeError("消息类型输入错误，请输入：text/textcard/news/video")
+
         send_values = {
-            "touser": self._touser,
+            "touser": touser,
             "msgtype": msgtype,
             "agentid": self._agentid,
             msgtype: msg,
