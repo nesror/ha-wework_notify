@@ -83,6 +83,15 @@ class WeWorkNotificationService(BaseNotificationService):
         elif msgtype == "textcard":
             msg = {"title": title, "description": message, "url": url}
         elif msgtype == "news":
+            if picurl.startwith("http"):
+                curl = (
+                    "https://qyapi.weixin.qq.com/cgi-bin/media/uploadimg?access_token="
+                    + self.get_access_token()
+                    + "&type=image"
+                )
+                files = {"image": open(imagepath, "rb")}
+                res = requests.post(curl, files=files)
+                picurl = json.loads(res.text)["url"]
             msg = {
                 "articles": [
                     {
