@@ -1,4 +1,4 @@
-# ha-wework_notify
+# wework_notify
 HomeAssistant 企业微信推送
 
 修改自： \
@@ -20,7 +20,7 @@ jijngpengboo 和 27hh 版本基础再修改的版本...
 * 将 custom_component 文件夹中的内容拷贝至自己的相应目录
 
 或者
-* 将此 repo ([https://github.com/dscao/ha-wework_notify](https://github.com/nesror/ha-wework_notify)) 添加到 [HACS](https://hacs.xyz/)，然后添加“Wework Notify”
+* 将此 repo ([https://github.com/dscao/wework_notify](https://github.com/nesror/ha-wework_notify)) 添加到 [HACS](https://hacs.xyz/)，然后添加“Wework Notify”
 
 ## 配置
 ```yaml
