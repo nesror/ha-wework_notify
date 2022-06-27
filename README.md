@@ -1,10 +1,10 @@
 # ha-wework_notify
 HomeAssistant 企业微信推送
 
-修改自：
-https://bbs.hassbian.com/thread-16924-1-1.html
-https://bbs.hassbian.com/thread-12547-1-1.html
-https://bbs.hassbian.com/thread-7128-1-1.html
+修改自： \
+https://bbs.hassbian.com/thread-16924-1-1.html \
+https://bbs.hassbian.com/thread-12547-1-1.html \
+https://bbs.hassbian.com/thread-7128-1-1.html 
 
 jijngpengboo 和 27hh 版本基础再修改的版本...
 
