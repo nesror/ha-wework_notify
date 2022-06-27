@@ -2,13 +2,13 @@
   "domain": "wework_notify",
   "name": "Wework Notify",
   "config_flow": false,
-  "documentation": "https://bbs.hassbian.com/thread-12547-1-1.html",
-  "issue_tracker": "https://bbs.hassbian.com/thread-12547-1-1.html",
+  "documentation": "https://github.com/dscao/ha-wework_notify/",
+  "issue_tracker": "https://bbs.hassbian.com/thread-16932-1-1.html",
   "requirements": [
   ],
   "dependencies": [],
   "codeowners": [
-    "27hh", "Mdxin","@dscao"
+    "27hh", "Mdxin", "@dscao"
   ],
   "version": "v1.2"
 }
