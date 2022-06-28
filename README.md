@@ -90,6 +90,15 @@ data:
 
 service: notify.wework
 data:
+  message: 发送带标题、内容和头图的链接卡片，上传本地图片，mpnews消息与news消息类似，不同的是图文消息内容存储在微信后台，并且支持保密选项。每个应用每天最多可以发送100次。
+  title: 这是标题
+  data:
+    type: mpnews
+    url: 'http://www.sogou.com'
+    imagepath: /config/www/1.jpg  
+
+service: notify.wework
+data:
   message: 发送带标题、内容和头图的链接卡片  
   title: 推送视频
   data:
