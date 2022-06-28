@@ -163,7 +163,6 @@ class WeWorkNotificationService(BaseNotificationService):
                 raise TypeError("视频地址未填写，消息类型为视频卡片时此项为必填！")
                 return
             files = {"video": open(videopath, "rb")}
-            r = requests.post(curl, files=files)
             try:
                 r = requests.post(curl, files=files, timeout=(20,180))
                 _LOGGER.debug("Uploading media " + videopath + " to WeChat servicers")
@@ -171,6 +170,9 @@ class WeWorkNotificationService(BaseNotificationService):
                 _LOGGER.error("File upload timeout, please try again later.")
                 return
             re = json.loads(r.text)
+            if int(re['errcode']) != 0:
+                _LOGGER.error("Upload failed. Error Code " + str(re['errcode']) + ". " + str(re['errmsg']))
+                return
             ree = re["media_id"]
             media_id = str(ree)
             msg = {"media_id": media_id, "title": title, "description": message}
