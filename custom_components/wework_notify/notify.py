@@ -1,11 +1,11 @@
 import logging
 import time
-import datetime
+#import datetime
 import requests
 import json
 import os
 import voluptuous as vol
-import sys
+#import sys
 
 from homeassistant.components.notify import (
     ATTR_MESSAGE,
@@ -18,7 +18,7 @@ from homeassistant.components.notify import (
 import homeassistant.helpers.config_validation as cv
 
 _LOGGER = logging.getLogger(__name__)
-DIVIDER = "——————————"
+DIVIDER = "———————————"
 
 def get_service(hass, config, discovery_info=None):
     return WeWorkNotificationService(
@@ -66,17 +66,17 @@ class WeWorkNotificationService(BaseNotificationService):
             "https://qyapi.weixin.qq.com/cgi-bin/message/send?access_token="
             + self.get_access_token()
         )
-        title = kwargs.get("title")
+        title = kwargs.get(ATTR_TITLE)
 
-        data = kwargs.get("data") or {}
+        data = kwargs.get(ATTR_DATA) or {}
         msgtype = data.get("type", "text")
         url = data.get("url")
         picurl = data.get("picurl")
         videopath = data.get("videopath")
         imagepath = data.get("imagepath")
-        touser = kwargs.get("target") or [self._touser]
+        safe = data.get("safe") or 0
+        touser = kwargs.get(ATTR_TARGET) or [self._touser]
         touser = '|'.join(touser)
-        # self._touser = touser
 
         if msgtype == "text":
             content = ""
@@ -86,7 +86,7 @@ class WeWorkNotificationService(BaseNotificationService):
             msg = {"content": content}
         elif msgtype == "textcard":
             msg = {"title": title, "description": message, "url": url}
-        elif msgtype == "news":            
+        elif msgtype == "news":
             curl = (
                 "https://qyapi.weixin.qq.com/cgi-bin/media/uploadimg?access_token="
                 + self.get_access_token()
@@ -94,8 +94,14 @@ class WeWorkNotificationService(BaseNotificationService):
             )
             if imagepath and os.path.isfile(imagepath):
                 files = {"image": open(imagepath, "rb")}
-                r = requests.post(curl, files=files)
+                try:
+                    r = requests.post(curl, files=files, timeout=(20,180))
+                    _LOGGER.debug("Uploading media " + imagepath + " to WeChat servicers")
+                except requests.Timeout: 
+                    _LOGGER.error("File upload timeout, please try again later.")
+                    return                
                 re = json.loads(r.text)["url"]
+
             elif picurl:
                 re = picurl
             else:
@@ -112,7 +118,41 @@ class WeWorkNotificationService(BaseNotificationService):
                     }
                 ]
             }
-            
+        elif msgtype == "mpnews":
+            curl = (
+                "https://qyapi.weixin.qq.com/cgi-bin/media/upload?access_token="
+                + self.get_access_token()
+                + "&type=image"
+            )
+            if imagepath and os.path.isfile(imagepath):
+                files = {"image": open(imagepath, "rb")}
+                try:
+                    r = requests.post(curl, files=files, timeout=(20,180))
+                    _LOGGER.debug("Uploading media " + imagepath + " to WeChat servicers")
+                except requests.Timeout: 
+                    _LOGGER.error("File upload timeout, please try again later.")
+                    return
+                re = json.loads(r.text)
+                if int(re['errcode']) != 0:
+                    _LOGGER.error("Upload failed. Error Code " + str(re['errcode']) + ". " + str(re['errmsg']))
+                    return
+                ree = re["media_id"]
+                media_id = str(ree)               
+                picurl = "https://qyapi.weixin.qq.com/cgi-bin/media/get?access_token=" + self.get_access_token() + "&media_id=" + media_id
+            else:
+                raise TypeError("本地图片地址未填写或图片不存在，消息类型为mpnews时本地图片地址为必填！")
+                return
+            msg = {
+                "articles": [
+                    {
+                        "title": title,
+                        "thumb_media_id": media_id,
+                        "content": message + "<br><img style=\"max-width:100%\" src=\" "+picurl+" \" alt=\" " + title + " \" >",
+                        "digest": message,
+                        "show_cover_pic": "1",                        
+                    }
+                ]
+            }    
         elif msgtype == "video":
             curl = (
                 "https://qyapi.weixin.qq.com/cgi-bin/media/upload?access_token="
@@ -124,20 +164,26 @@ class WeWorkNotificationService(BaseNotificationService):
                 return
             files = {"video": open(videopath, "rb")}
             r = requests.post(curl, files=files)
+            try:
+                r = requests.post(curl, files=files, timeout=(20,180))
+                _LOGGER.debug("Uploading media " + videopath + " to WeChat servicers")
+            except requests.Timeout: 
+                _LOGGER.error("File upload timeout, please try again later.")
+                return
             re = json.loads(r.text)
             ree = re["media_id"]
             media_id = str(ree)
             msg = {"media_id": media_id, "title": title, "description": message}
 
         else:
-            raise TypeError("消息类型输入错误，请输入：text/textcard/news/video")
+            raise TypeError("消息类型输入错误，请输入：text/textcard/news/mpnews/video")
 
         send_values = {
             "touser": touser,
             "msgtype": msgtype,
             "agentid": self._agentid,
             msgtype: msg,
-            "safe": "0",
+            "safe": safe,
         }
         _LOGGER.debug(send_values)
         send_msges = bytes(json.dumps(send_values), "utf-8")
