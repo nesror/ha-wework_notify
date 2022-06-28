@@ -10,10 +10,12 @@ jijngpengboo 和 27hh 版本基础再修改的版本...
 
 ## 修改
 （主要针对news类型消息） \
-1、同时支持本地上传图片和网络地址的图片，增加 target 微信接收者。 \
-2、优先使用imagepath上传本地图片，如果 imagepath 本地址图片不存在或未填写时使用 picurl 网络地址。 \
+1、同时支持本地上传图片和网络地址的图片 \
+优先使用imagepath上传本地图片，如果 imagepath 本地址图片不存在或未填写时使用 picurl 网络地址。 \
   如果 picurl 网络地址也未配置，则发送无图片带标题的链接卡片(与原来的一致) \
-3、url 不填写则使用图片的链接
+url 不填写则使用图片的链接 \
+2、增加 target 微信接收者。 \
+3、同时支持news和mpnews类型，mpnews类型时，必须为本地图片上传。可使用safe: 1 为保密消息。
 
 ## 安装
 
@@ -90,12 +92,13 @@ data:
 
 service: notify.wework
 data:
-  message: 发送带标题、内容和头图的链接卡片，上传本地图片，mpnews消息与news消息类似，不同的是图文消息内容存储在微信后台，并且支持保密选项。每个应用每天最多可以发送100次。
+  message: 发送带标题、内容和头图的链接卡片，上传本地图片，mpnews消息与news消息类似，不同的是图文消息内容存储在微信后台，并且支持保密选项（safe: 1，不填写默认为0）。每个应用每天最多可以发送100次。
   title: 这是标题
   data:
     type: mpnews
     url: 'http://www.sogou.com'
-    imagepath: /config/www/1.jpg  
+    imagepath: /config/www/1.jpg
+  safe: 1
 
 service: notify.wework
 data:
@@ -104,6 +107,7 @@ data:
   data:
     type: video
     videopath: /config/www/1.mp4
+  safe: 0
 
 ```
 
@@ -128,4 +132,6 @@ data:
       'latitude')-0.00240}}&key=819cxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
 
 ```
+
+
 
