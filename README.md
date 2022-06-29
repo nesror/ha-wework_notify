@@ -4,7 +4,13 @@ HomeAssistant 企业微信推送
 修改自： \
 https://bbs.hassbian.com/thread-16924-1-1.html \
 https://bbs.hassbian.com/thread-12547-1-1.html \
-https://bbs.hassbian.com/thread-7128-1-1.html 
+https://bbs.hassbian.com/thread-7128-1-1.html  
+
+
+企业微信官方相关文档： \
+https://open.work.weixin.qq.com/help2/pc/15381 \
+https://developer.work.weixin.qq.com/document/path/90236
+
 
 jijngpengboo 和 27hh 版本基础再修改的版本...
 
