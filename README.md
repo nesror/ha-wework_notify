@@ -21,9 +21,10 @@ jijngpengboo 和 27hh 版本基础再修改的版本...
   如果 picurl 网络地址也未配置，则发送无图片带标题的链接卡片(与原来的一致) \
 url 不填写则使用图片的链接 \
 2、增加 target 微信接收者。 \
-3、同时支持news和mpnews类型，mpnews类型时，必须为本地图片上传。可使用safe: 1 为保密消息。
-4、支持代理服务器设置（暂无有效代理服务器，未测试）
+3、同时支持news和mpnews类型，mpnews类型时，必须为本地图片上传。可使用safe: 1 为保密消息。 \
+4、支持代理服务器设置（暂无有效代理服务器，未测试） \
 5、支持接口中转服务器设置（node-red已测试）
+
 
 ## 安装
 
@@ -42,7 +43,7 @@ notify:
     secret:               # 这个是企业微信里面新建应用的应用secret
     touser: '@all'        # 默认接收者， @all为全体成员，也可用具体ID： 如：userid1|userid2|userid3
     https_proxies: username:password@XXX.XXX.XXX.XXX:8080   #支持https的代理服务器地址（可选项）
-    resource: http://XXX.XXX.XXX.XXX:1880/endpoint   #选配服务器中转地址（可选项），默认为： https://qyapi.weixin.qq.com/cgi-bin ,可设置为 http:xxx.xxx.com:1880/endpoint 或 http:xxx.xxx.com:1880（看node-red的设置）
+    resource: http://XXX.XXX.XXX.XXX:1880/endpoint   #选配服务器中转地址（可选项），默认为： https://qyapi.weixin.qq.com/cgi-bin ,可设置为 http:xxx.xxx.com:1880/endpoint 或 http:xxx.xxx.com:1880（具体根据node-red的设置）
     resource_username: username  #选配服务器中转基本认证用户 如 node-red中的http_node username （可选项）
     resource_password: password  #选配服务器中转地址认证密码 如 node-red中的http_node password （可选项）
 ```
