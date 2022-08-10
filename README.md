@@ -1,7 +1,5 @@
 # wework_notify
 [![hacs_badge](https://img.shields.io/badge/Home-Assistant-%23049cdb)](https://www.home-assistant.io/)
-[![hacs_badge](https://img.shields.io/badge/HACS-Custom-41BDF5.svg)](https://github.com/hacs/integration)
-
 [![ha-inkwavemap version](https://img.shields.io/badge/wework_notify-2022.7.1-blue.svg)](https://github.com/dscao/wework_notify)
 ![visit](https://visitor-badge.glitch.me/badge?page_id=dscao.wework_notify&left_text=visit)
 
