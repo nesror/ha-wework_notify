@@ -27,21 +27,26 @@ def get_service(hass, config, discovery_info=None):
         config.get("agentId"),
         config.get("secret"),
         config.get("touser"),
+        config.get("proxy_url"),
     )
 
 
 class WeWorkNotificationService(BaseNotificationService):
-    def __init__(self, hass, corpid, agentId, secret, touser):
+    def __init__(self, hass, corpid, agentId, secret, touser, proxy_url):
         self._corpid = corpid
         self._corpsecret = secret
         self._agentid = agentId
         self._touser = touser
         self._token = ""
         self._token_expire_time = 0
+        if proxy_url is None :
+            self.proxy_url = "https://qyapi.weixin.qq.com"
+        else:
+            self.proxy_url = proxy_url
 
     def _get_access_token(self):
         _LOGGER.debug("Getting token.")
-        url = "https://qyapi.weixin.qq.com/cgi-bin/gettoken"
+        url = self.proxy_url + "/cgi-bin/gettoken"
         values = {
             "corpid": self._corpid,
             "corpsecret": self._corpsecret,
@@ -63,7 +68,8 @@ class WeWorkNotificationService(BaseNotificationService):
 
     def send_message(self, message="", **kwargs):
         send_url = (
-            "https://qyapi.weixin.qq.com/cgi-bin/message/send?access_token="
+            self.proxy_url
+            + "/cgi-bin/message/send?access_token="
             + self.get_access_token()
         )
         title = kwargs.get("title")
@@ -85,7 +91,8 @@ class WeWorkNotificationService(BaseNotificationService):
         elif msgtype == "news":
             if not picurl.startswith("http"):
                 curl = (
-                    "https://qyapi.weixin.qq.com/cgi-bin/media/uploadimg?access_token="
+                    self.proxy_url
+                    + "/cgi-bin/media/uploadimg?access_token="
                     + self.get_access_token()
                     + "&type=image"
                 )
@@ -104,7 +111,8 @@ class WeWorkNotificationService(BaseNotificationService):
             }
         elif msgtype == "video":
             curl = (
-                "https://qyapi.weixin.qq.com/cgi-bin/media/upload?access_token="
+                self.proxy_url
+                + "/cgi-bin/media/upload?access_token="
                 + self.get_access_token()
                 + "&type=video"
             )
