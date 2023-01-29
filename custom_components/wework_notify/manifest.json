@@ -1,7 +1,7 @@
 {
   "domain": "wework_notify",
   "name": "Wework Notify",
-  "config_flow": true,
+  "config_flow": false,
   "documentation": "https://github.com/nesror/ha-wework_notify",
   "issue_tracker": "https://github.com/nesror/ha-wework_notify/issues",
   "requirements": [],
@@ -9,7 +9,8 @@
   "codeowners": [
     "27hh",
     "Mdxin",
-    "nestor"
+    "nestor",
+    "dscao"
   ],
-  "version": "2022.6.27"
+  "version": "2023.1.1"
 }
