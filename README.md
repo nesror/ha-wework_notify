@@ -1,6 +1,6 @@
 # wework_notify
 [![hacs_badge](https://img.shields.io/badge/Home-Assistant-%23049cdb)](https://www.home-assistant.io/)
-[![ha-inkwavemap version](https://img.shields.io/badge/wework_notify-2022.7.1-blue.svg)](https://github.com/nesror/ha-wework_notify)
+[![ha-inkwavemap version](https://img.shields.io/badge/wework_notify-2023.1.1-blue.svg)](https://github.com/nesror/ha-wework_notify)
 ![visit](https://visitor-badge.glitch.me/badge?page_id=nesror.ha-wework_notify&left_text=visit)
 
 HomeAssistant 企业微信推送
@@ -35,7 +35,7 @@ url 不填写则使用图片的链接 \
 * 将 custom_component 文件夹中的内容拷贝至自己的相应目录
 
 或者
-* 将此 repo ([https://github.com/dscao/wework_notify](https://github.com/dscao/wework_notify)) 添加到 [HACS](https://hacs.xyz/)，然后添加“Wework Notify”
+* 将此 repo ([https://github.com/nesror/ha-wework_notify](https://github.com/nesror/ha-wework_notify)) 添加到 [HACS](https://hacs.xyz/)，然后添加“Wework Notify”
 
 ## 配置
 ```yaml
