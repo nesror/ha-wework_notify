@@ -1,22 +1,23 @@
-# wework_notify
+# HomeAssistant 企业微信推送
 [![version](https://img.shields.io/github/manifest-json/v/nesror/ha-wework_notify?filename=custom_components%2Fwework_notify%2Fmanifest.json)](https://github.com/nesror/ha-wework_notify/releases/latest)
 [![stars](https://img.shields.io/github/stars/nesror/ha-wework_notify)](https://github.com/nesror/ha-wework_notify/stargazers)
 [![issues](https://img.shields.io/github/issues/nesror/ha-wework_notify)](https://github.com/nesror/ha-wework_notify/issues)
 [![HACS](https://img.shields.io/badge/HACS-Default-orange.svg)](https://hacs.xyz)
 ![visit](https://visitor-badge.glitch.me/badge?page_id=nesror.ha-wework_notify&left_text=visit)
 
-HomeAssistant 企业微信推送
+### 公众号
+关注公众号及时获取最新版，各种使用技巧以及Hass的新奇玩法
+
+<img src="gzh.png" height="120"/>
 
 修改自： \
 https://bbs.hassbian.com/thread-16924-1-1.html \
 https://bbs.hassbian.com/thread-12547-1-1.html \
-https://bbs.hassbian.com/thread-7128-1-1.html  
-
+https://bbs.hassbian.com/thread-7128-1-1.html
 
 企业微信官方相关文档： \
 https://open.work.weixin.qq.com/help2/pc/15381 \
 https://developer.work.weixin.qq.com/document/path/90236
-
 
 jijngpengboo 和 27hh 版本基础再修改的版本...
 
@@ -30,7 +31,6 @@ url 不填写则使用图片的链接 \
 3、同时支持news和mpnews类型，mpnews类型时，必须为本地图片上传。可使用safe: 1 为保密消息。 \
 4、支持代理服务器设置（暂无有效代理服务器，未测试） \
 5、支持接口中转服务器设置（node-red已测试）
-
 
 ## 安装
 
